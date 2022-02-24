@@ -1,0 +1,11 @@
+.env
+
+blobs/*
+screenshots/*
+test_shuffles/*
+
+!blobs/.gitkeep
+!screenshots/.gitkeep
+!test_shuffles/.gitkeep
+
+node_modules

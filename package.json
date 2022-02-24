@@ -1,0 +1,19 @@
+{
+  "name": "seeder",
+  "version": "1.0.0",
+  "description": "Generates seeds to shuffle decks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js && node clean.js",
+    "clean": "node clean.js",
+    "gen": "node index.js"
+  },
+  "author": "Ascinocco",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "googleapis": "^95.0.0",
+    "puppeteer": "^13.4.0"
+  }
+}
