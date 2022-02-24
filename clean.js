@@ -1,5 +1,5 @@
-const fs = require('fs');
+const fs = require("fs");
 
-fs.rmSync('./screenshots', { recursive: true, force: true });
-fs.mkdirSync('./screenshots');
-fs.writeFileSync('./screenshots/.gitkeep');
+fs.rmSync("./screenshots", { recursive: true, force: true });
+fs.mkdirSync("./screenshots");
+fs.writeFileSync("./screenshots/.gitkeep");

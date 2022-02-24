@@ -15,5 +15,8 @@
     "dotenv": "^16.0.0",
     "googleapis": "^95.0.0",
     "puppeteer": "^13.4.0"
+  },
+  "devDependencies": {
+    "prettier": "2.5.1"
   }
 }
