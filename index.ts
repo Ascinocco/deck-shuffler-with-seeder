@@ -111,7 +111,7 @@ em.on(
   async ({ pageToken = null }: ReqLiveStream = {}) => {
     const { data } = await fetchLiveStreams(pageToken);
     console.log("processing batch...", pageToken);
-    data.items?.forEach((ls, i) => {
+    data.items?.forEach((ls) => {
       em.emit(SeederEvent.SaveScreenshot, {
         vid: ls.id?.videoId || null,
       });
@@ -127,7 +127,7 @@ em.on(
 
 // bootstrap func
 const bootstrap = () => {
-  console.log("bootstraping...");
+  console.log("bootstraping seed generator service...");
   em.emit(SeederEvent.ReqLiveStream);
 };
 

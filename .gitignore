@@ -15,4 +15,7 @@ old_screenshots/*
 !screenshots/.gitkeep
 !test_shuffles/.gitkeep
 
+mongo-init.js
+mongo-init.sh
+
 node_modules
