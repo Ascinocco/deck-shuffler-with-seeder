@@ -4,10 +4,13 @@
 blobs/*
 screenshots/*
 test_shuffles/*
+dist/*
+
 
 old_blobs/*
 old_screenshots/*
 
+!dist/.gitkeep
 !blobs/.gitkeep
 !screenshots/.gitkeep
 !test_shuffles/.gitkeep
