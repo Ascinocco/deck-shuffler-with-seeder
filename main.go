@@ -2,14 +2,37 @@ package main
 
 import (
 	"fmt"
+	"hash/fnv"
+	"io/ioutil"
 	"log"
+	"os"
 	"time"
 
 	"github.com/radovskyb/watcher"
 )
 
-// @TODO: remove deck logic, only generate hashes and store in db
-// update where folders pull from
+// @TODO: Store seeds in db
+// @TODO: Dockerize
+
+func handleFileEvent(e watcher.Event, w *watcher.Watcher) {
+	for _, f := range w.WatchedFiles() {
+		if !f.IsDir() {
+			bf, fileReadErr := ioutil.ReadFile("./blobs/" + f.Name())
+
+			if fileReadErr != nil {
+				fmt.Println("error reading file", fileReadErr)
+			}
+
+			h := fnv.New64a()
+			h.Write(bf)
+			hs := h.Sum64()
+
+			fmt.Println(hs)
+
+			os.Remove("./blobs/" + f.Name())
+		}
+	}
+}
 
 func main() {
 	w := watcher.New()
@@ -20,7 +43,7 @@ func main() {
 		for {
 			select {
 			case event := <-w.Event:
-				fmt.Println("chan event", event) // Print the event's info.
+				handleFileEvent(event, w)
 			case err := <-w.Error:
 				log.Fatalln("chan err", err)
 			case <-w.Closed:
@@ -33,16 +56,6 @@ func main() {
 	if err := w.Add("./blobs"); err != nil {
 		log.Fatalln("watch blobs err", err)
 	}
-
-	for path, f := range w.WatchedFiles() {
-		fmt.Printf("watches files - %s: %s\n", path, f.Name())
-	}
-
-	go func() {
-		w.Wait()
-		w.TriggerEvent(watcher.Create, nil)
-		w.TriggerEvent(watcher.Remove, nil)
-	}()
 
 	// Start the watching process - it'll check for changes every 100ms.
 	if err := w.Start(time.Millisecond * 100); err != nil {
