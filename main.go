@@ -21,15 +21,15 @@ func handleFileEvent(e watcher.Event, w *watcher.Watcher) {
 
 			if fileReadErr != nil {
 				fmt.Println("error reading file", fileReadErr)
+			} else {
+				h := fnv.New64a()
+				h.Write(bf)
+				hs := h.Sum64()
+
+				fmt.Println(hs)
+
+				os.Remove("./blobs/" + f.Name())
 			}
-
-			h := fnv.New64a()
-			h.Write(bf)
-			hs := h.Sum64()
-
-			fmt.Println(hs)
-
-			os.Remove("./blobs/" + f.Name())
 		}
 	}
 }
